@@ -9,8 +9,6 @@ function kolobok(nameCharacter) {
     return 'Неизвестный персонаж'
 }
 
-
-
 function newYear(namePerson) {
     if (namePerson === 'Дед Мороз') {
         return "Дед Мороз! Дед Мороз! Дед Мороз!";
