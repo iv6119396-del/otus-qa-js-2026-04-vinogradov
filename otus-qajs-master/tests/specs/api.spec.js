@@ -12,8 +12,8 @@ describe('loginIsBeing', () => {
       const data = await response.json()
 
       expect(response.status).toEqual(404)
-      expect(code).toBe(0)
-      expect(message).toBe("string")
+      expect(data.code).toBe(0)
+      expect(data.message).toBe("string")
     })
 })
 
@@ -31,8 +31,8 @@ describe('passwordFit', () => {
       const data = await response.json()
 
       expect(response.status).toEqual(404)
-      expect(code).toBe(0)
-      expect(message).toBe("string")
+      expect(data.code).toBe(0)
+      expect(data.message).toBe("string")
     })
 })
 
