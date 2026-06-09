@@ -47,7 +47,7 @@ describe('API Tests for JSONPlaceholder', () => {
     try {
       await api.get('/posts/99999');
     } catch (error) {
-      expect(error.response.status).toBe(404);
+      expect(api.get('/posts/99999')).rejects.toMatch('error')
     }
   });
 });

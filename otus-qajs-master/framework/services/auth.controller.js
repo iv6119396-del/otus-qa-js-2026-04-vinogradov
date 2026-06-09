@@ -14,9 +14,9 @@ class AuthController {
   }
 
   async login(username = auth.username, password = auth.password) {
-    const res = await this.apiClient.post('/Account/v1/Login', {
+    const res = await this.apiClient.post('/Account/v1/GenerateToken', {
       userName: username,
-      password,
+      password: password,
     });
     return res.data.token;
   }

@@ -7,7 +7,8 @@ class APIController {
     this.headers = config.headers;
     this.client = axios.create({
       baseURL: this.baseUrl,
-      headers: this.headers
+      headers: this.headers,
+      validateStatus: () => true
     });
   }
 

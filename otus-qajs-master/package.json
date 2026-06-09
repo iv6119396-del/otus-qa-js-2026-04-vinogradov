@@ -4,6 +4,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node src/main.js",
+        "test": "jest",
         "lint:ci": "eslint .",
         "lint": "eslint . --fix"
     },
@@ -16,6 +17,7 @@
         "eslint-config-prettier": "^10.0.1",
         "eslint-plugin-prettier": "^5.2.3",
         "globals": "^15.14.0",
+        "jest": "^30.4.2",
         "npm-run-all2": "^7.0.2",
         "prettier": "^3.4.2"
     },
@@ -25,6 +27,7 @@
         "ajv": "^6.12.6",
         "ansi-styles": "^4.3.0",
         "argparse": "^2.0.1",
+        "axios": "^1.17.0",
         "balanced-match": "^1.0.2",
         "brace-expansion": "^1.1.11",
         "callsites": "^3.1.0",

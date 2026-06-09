@@ -8,12 +8,13 @@ class BooksController {
       baseURL: baseUrl,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     });
   }
 
   async addBook(payload) {
+    console.log(payload);
     const res = await this.apiClient.post('/BookStore/v1/Books', payload);
     return res.data;
   }
@@ -37,3 +38,5 @@ class BooksController {
     return res.status;
   }
 }
+
+module.exports = BooksController;
