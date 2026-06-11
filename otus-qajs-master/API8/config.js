@@ -3,7 +3,12 @@ const config = {
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
-  }
+  },
+   testEnvironment: 'allure-jest/node',
+   testEnvironmentOptions: {
+    resultsDir: 'reports/allure-results'
+ }
+
 };
 
 module.exports = config;
