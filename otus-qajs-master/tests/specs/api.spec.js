@@ -1,88 +1,85 @@
-// Создание пользователя c ошибкой, логин уже используется
-describe('loginIsBeing', () => {
-    it('login is being', async () => {
-      const response = await fetch('/Account/v1/User', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          userName: "string",
-          password: "string"
-        })
+const baseUrl = 'https://bookstore.demoqa.com';
+
+// Для тестирования был создан аккаунт (QWERty/QWERty11310@)
+describe('CheckingRegistration', () => {
+  it('the username is already in use', async () => {
+    const response = await fetch(`${baseUrl}/Account/v1/User`,{
+      method: "POST",
+      headers: {'accept': 'application/json', 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        userName: 'QWERty',
+        password: 'QWERty11310@',
+        expiresInMins: 30
       })
-      const data = await response.json()
-
-      expect(response.status).toEqual(404)
-      expect(data.code).toBe(0)
-      expect(data.message).toBe("string")
     })
-})
+    
+    expect(response.status).toEqual(406);
+  });
 
-// Создание пользователя c ошибкой, пароль не подходит
-describe('passwordFit', () => {
-    it('password fit', async () => {
-      const response = await fetch('/Account/v1/User', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          userName: "Ivan",
-          password: ""
-        })
+    it('password doesnt fit', async () => {
+    const response = await fetch(`${baseUrl}/Account/v1/User`,{
+      method: "POST",
+      headers: {'accept': 'application/json', 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        userName: 'Qwerty',
+        password: 'Qwerty',
+        expiresInMins: 30
       })
-      const data = await response.json()
-
-      expect(response.status).toEqual(404)
-      expect(data.code).toBe(0)
-      expect(data.message).toBe("string")
     })
-})
 
-//Создание пользователя успешно
-describe('success', () => {
-    it('success', async () => {
-      const response = await fetch('/Account/v1/User', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          userName: "Ivan",
-          password: "Ivan"
-        })
+    const data = await response.json();
+    
+    expect(response.status).toEqual(400);
+    expect(data.code).toBe('1300');
+  });
+
+      it('successful registration', async () => {
+    const response = await fetch(`${baseUrl}/Account/v1/User`,{
+      method: "POST",
+      headers: {'accept': 'application/json', 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        userName: 'Igor161612',
+        password: 'Petr2828@',
+        expiresInMins: 30
       })
-      const data = await response.json()
-
-      expect(response.status).toEqual(201)
     })
-})
 
-// Генерация токена c ошибкой
-describe('tokenError', () => {
-    it('token error', async () => {
-      const response = await fetch('/Account/v1/GenerateToken/v1/User', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          userName: "Ivan",
-          password: "Iva"
-        })
+    const data = await response.json();
+    
+    expect(response.status).toEqual(201);
+    expect(data.username).toBe('Igor161612');
+  });
+});
+
+describe('TokenGeneration', () => {
+  it('Generating a token with an error', async () => {
+    const response = await fetch(`${baseUrl}/Account/v1/GenerateToken`,{
+      method: "POST",
+      headers: {'accept': 'application/json', 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        username: 'QWERty',
+        password: 'QWERty',
+        expiresInMins: 30
       })
-      const data = await response.json()
-
-      expect(response.status).toEqual(400)
     })
-})
+    
+    expect(response.status).toEqual(400);
+  });
 
-//Генерация токена успешно
-describe('tokenSuccess', () => {
-    it('token success', async () => {
-      const response = await fetch('/Account/v1/GenerateToken/v1/User', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          userName: "Ivan",
-          password: "Ivan"
-        })
+    it('Successful token generation', async () => {
+    const response = await fetch(`${baseUrl}/Account/v1/GenerateToken`,{
+      method: "POST",
+      headers: {'accept': 'application/json', 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        userName: 'QWERty',
+        password: 'QWERty11310@',
+        expiresInMins: 30
       })
-      const data = await response.json()
-
-      expect(response.status).toEqual(200)
     })
+    
+    const data = await response.json();
+
+    expect(response.status).toEqual(200);
+    expect(data.status).toBe("Success")
+  });
 })
